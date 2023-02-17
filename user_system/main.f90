@@ -70,13 +70,17 @@ PROGRAM main
   
   INTEGER :: iterator
 
-  DO iterator = 1, user_count
-   IF (users(iterator) == "") THEN
-    ! do nothing
-   ELSE
+  IF (user_count < 1) THEN
+   print *, "There are no users!"
+  ELSE
+   DO iterator = 1, user_count
+    IF (users(iterator) == "") THEN
+     ! do nothing
+    ELSE
      print *, users(iterator)
-   ENDIF
-  END DO
+    ENDIF
+   END DO
+  ENDIF
  
  END SUBROUTINE print_users
 
@@ -97,11 +101,16 @@ PROGRAM main
 
  
  SUBROUTINE remove_user
+  
+  IF (user_count < 1) THEN
+   print *, "No users to remove!"
+  ELSE
+   print *, "User: ", users(users_index - 1), "removed."
+   users(users_index - 1) = ""
 
-  print *, "User: ", users(users_index - 1), "removed."
-  users(users_index - 1) = ""
-
-  users_index = users_index - 1
+   users_index = users_index - 1
+   user_count = user_count - 1
+  ENDIF
 
  END SUBROUTINE remove_user 
  
